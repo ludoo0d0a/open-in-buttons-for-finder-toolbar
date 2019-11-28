@@ -47,7 +47,7 @@ References:
  - https://github.com/cnstntn-kndrtv/open-in-buttons-for-finder-toolbar
  - https://medium.com/@n1kk/how-to-add-console-here-button-to-finder-toolbar-or-any-other-action-button-84dae9c34891
  - https://www.engadget.com/2008/01/01/mac-automation-saving-automator-workflows/
-
+ - https://emmanuelbernard.com/blog/2017/02/27/start-intellij-idea-command-line/
 
 ## Sublime Text
 Read [this topic](https://gist.github.com/artero/1236170 "this topic") before run "open-in-Sublime" app
