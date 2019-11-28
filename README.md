@@ -37,8 +37,9 @@ Then open `*.workflow` files from `scr/touchbar` and save them.
 Or copy `*.workflow` files to `~/Library/Services`
 
 ## to create Finder toolbar
-Open workflow in Automator, then convert/save it as Application
-Inside sript can vary dependoing on app
+Open workflow in Automator, open apps/Open-in-[YOURAPP].app folder
+Update script to find executable and launch it.
+then convert/save it as Application
 
 To get a proper icon, open propeties panel of the new created app, and drag drop application with the chosen icon on the icon in the top left corner of the properties panel.
 

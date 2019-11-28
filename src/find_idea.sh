@@ -1,6 +1,6 @@
-IDEA=`find "$HOME/Applications/" -name idea`
+IDEA=`find "$HOME/Applications/" -name idea | tail -n1`
 if [ -z "$IDEA" ]
 then
-IDEA=`find "/Users/ludoo/Library/Application Support/JetBrains/" -name idea`
+IDEA=`find ~/"Library/Application Support/JetBrains/" -name idea | tail -n1`
 fi
 echo "Open IntelliJ...  $IDEA"

@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>AMApplicationBuild</key>
-	<string>444.42</string>
+	<string>490</string>
 	<key>AMApplicationVersion</key>
-	<string>2.9</string>
+	<string>2.10</string>
 	<key>AMDocumentVersion</key>
 	<string>2</string>
 	<key>actions</key>
@@ -60,10 +60,10 @@
 				<dict>
 					<key>COMMAND_STRING</key>
 					<string>finderPath=`osascript -e 'tell application "Finder" to get the POSIX path of (target of front window as alias)'`
-IDEA=`find "$HOME/Applications/" -name idea`
+IDEA=`find "$HOME/Applications/" -name idea | tail -n1`
 if [ -z "$IDEA" ]
 then
-IDEA=`find "/Users/ludoo/Library/Application Support/JetBrains/" -name idea`
+IDEA=`find ~/"Library/Application Support/JetBrains/" -name idea | tail -n1`
 fi
 echo "Open IntelliJ...  $IDEA"
 open -a "$IDEA" "$finderPath"</string>
@@ -126,9 +126,9 @@ open -a "$IDEA" "$finderPath"</string>
 					<key>1</key>
 					<dict>
 						<key>default value</key>
-						<string></string>
+						<false/>
 						<key>name</key>
-						<string>source</string>
+						<string>CheckedForUserDefaultShell</string>
 						<key>required</key>
 						<string>0</string>
 						<key>type</key>
@@ -139,9 +139,9 @@ open -a "$IDEA" "$finderPath"</string>
 					<key>2</key>
 					<dict>
 						<key>default value</key>
-						<false/>
+						<string></string>
 						<key>name</key>
-						<string>CheckedForUserDefaultShell</string>
+						<string>source</string>
 						<key>required</key>
 						<string>0</string>
 						<key>type</key>
