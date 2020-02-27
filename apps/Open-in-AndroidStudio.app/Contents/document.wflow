@@ -60,13 +60,20 @@
 				<dict>
 					<key>COMMAND_STRING</key>
 					<string>finderPath=`osascript -e 'tell application "Finder" to get the POSIX path of (target of front window as alias)'`
-STUDIO=`find "$HOME/Applications/" -name "Android Studio.app" | tail -n1`
-if [ -z "$STUDIO" ]
+#In Studi, Tools/Create command line launcher to get this script
+STUDIO="/usr/local/bin/studio"
+VERSION=2
+if [ -e "$STUDIO" ]
 then
-STUDIO=`/usr/local/bin/studio`
-fi
-echo "Open AndroidStudio...  $STUDIO"
-open -a "$STUDIO" "$finderPath"</string>
+  echo "Open AndroidStudio...  $STUDIO"
+  echo "$VERSION - open script : \"$STUDIO\" \"$finderPath\"" &gt; ~/androidstudio.log
+  "$STUDIO" "$finderPath"
+else
+  STUDIO=`find "$HOME/Applications/" -name "Android Studio.app" | tail -n1`
+  echo "Open AndroidStudio...  $STUDIO"
+  echo "$VERSION - open app: open -a \"$STUDIO\" \"$finderPath\"" &gt; ~/androidstudio.log
+  open -a "$STUDIO" "$finderPath" 
+fi</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
 					<key>inputMethod</key>
@@ -179,7 +186,7 @@ open -a "$STUDIO" "$finderPath"</string>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>473.500000:526.000000</string>
+				<string>473.500000:500.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>

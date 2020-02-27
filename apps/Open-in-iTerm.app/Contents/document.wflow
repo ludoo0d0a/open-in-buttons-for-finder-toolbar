@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>AMApplicationBuild</key>
-	<string>428</string>
+	<string>492</string>
 	<key>AMApplicationVersion</key>
-	<string>2.7</string>
+	<string>2.10</string>
 	<key>AMDocumentVersion</key>
 	<string>2</string>
 	<key>actions</key>
@@ -47,11 +47,11 @@
 				<key>ActionBundlePath</key>
 				<string>/System/Library/Automator/Run AppleScript.action</string>
 				<key>ActionName</key>
-				<string>Запустить AppleScript</string>
+				<string>Exécuter un script AppleScript</string>
 				<key>ActionParameters</key>
 				<dict>
 					<key>source</key>
-					<string>on run	set _t to "iTerm"	tell application "Finder"		set _cwd to quoted form of (POSIX path of (folder of the front window as alias))	end tell	_cdto(_cwd, _t)end runon _cdto(_cwd, _t)	activate application _t	log _cwd	tell application "System Events"		tell process _t			keystroke "t" using command down		end tell				tell application "iTerm"			try				set _tab to last tab of last window			end try						set _session to (current session of current window)						tell _session				write text "cd " &amp; _cwd &amp; ";clear;"			end tell					end tell	end tell	end _cdto</string>
+					<string>on run	set _t to "iTerm"	tell application "Finder"		set _cwd to quoted form of (POSIX path of (folder of the front window as alias))	end tell	CD_to(_cwd)end runon CD_to(theDir)	tell application "iTerm"		activate		set win to (create window with default profile)		set sesh to (current session of win)		tell sesh to write text "cd " &amp; theDir &amp; ";clear"	end tellend CD_to</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.RunScript</string>
@@ -71,7 +71,7 @@
 				<string>F8146734-435F-4CC0-BF1E-74378FFB827F</string>
 				<key>Keywords</key>
 				<array>
-					<string>Запустить</string>
+					<string>Exécuter</string>
 				</array>
 				<key>OutputUUID</key>
 				<string>A8D5F191-1FFD-4B22-8CD0-3C48202415B4</string>
@@ -107,7 +107,7 @@ end run</string>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>442.000000:316.000000</string>
+				<string>476.750000:315.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
