@@ -61,29 +61,18 @@
 					<key>COMMAND_STRING</key>
 					<string>finderPath=`osascript -e 'tell application "Finder" to get the POSIX path of (target of front window as alias)'`
 #In Studio, Tools/Create command line launcher to get this script
-VERSION=3
-STUDIO=`find /private/var/folders/ -name "Android Studio.app"  2&gt;&amp;- | tail -n1`
-if [ -z "$STUDIO" ]
-then
-    STUDIO=`find "$HOME/Applications/" -name "Android Studio.app" | tail -n1`
-fi
-
+STUDIO="/usr/local/bin/studio"
+VERSION=2
 if [ -e "$STUDIO" ]
 then
-    echo "Open AndroidStudio...  $STUDIO"
-    echo "$VERSION - open app: open -a \"$STUDIO\" \"$finderPath\"" &gt; ~/androidstudio.log
-    open -a "$STUDIO" "$finderPath"
+  echo "Open AndroidStudio...  $STUDIO"
+  echo "$VERSION - open script : \"$STUDIO\" \"$finderPath\"" &gt; ~/androidstudio.log
+  "$STUDIO" "$finderPath"
 else
-  STUDIO="/usr/local/bin/studio"
-
-  if [ -e "$STUDIO" ]
-  then
-    echo "Open AndroidStudio...  $STUDIO"
-    echo "$VERSION - open script : \"$STUDIO\" \"$finderPath\"" &gt; ~/androidstudio.log
-    "$STUDIO" "$finderPath"
-  else
-    echo "Cound not found Android Studio"
-  fi
+  STUDIO=`find "$HOME/Applications/" -name "Android Studio.app" | tail -n1`
+  echo "Open AndroidStudio...  $STUDIO"
+  echo "$VERSION - open app: open -a \"$STUDIO\" \"$finderPath\"" &gt; ~/androidstudio.log
+  open -a "$STUDIO" "$finderPath" 
 fi</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
@@ -197,7 +186,7 @@ fi</string>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>476.750000:561.000000</string>
+				<string>476.750000:184.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
