@@ -38,10 +38,14 @@ Or copy `*.workflow` files to `~/Library/Services`
 
 ## to create Finder toolbar
 Open workflow in Automator, open apps/Open-in-[YOURAPP].app folder
+
 Update script to find executable and launch it.
+
 then convert/save it as Application
 
-To get a proper icon, open propeties panel of the new created app, and drag drop application with the chosen icon on the icon in the top left corner of the properties panel.
+To get a proper icon: 
+- open properties panel of the new created app
+- drag drop application with the chosen icon on the icon in the top left corner of the properties panel.
 
 References:
  - https://github.com/cnstntn-kndrtv/open-in-buttons-for-finder-toolbar
