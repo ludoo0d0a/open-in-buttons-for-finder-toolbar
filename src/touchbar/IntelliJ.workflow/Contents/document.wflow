@@ -137,7 +137,7 @@
 					<string>IDEA=`find "$HOME/Applications/" -name idea`
 if [ -z "$IDEA" ]
 then
-IDEA=`find "/Users/ludoo/Library/Application Support/JetBrains/" -name idea`
+IDEA=`find "~/Library/Application Support/JetBrains/" -name idea`
 fi
 while read file; 
 open -a "$IDEA" "$file"
@@ -255,7 +255,7 @@ done
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>404.000000:633.000000</string>
+				<string>404.000000:614.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -265,7 +265,7 @@ done
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>66184471-7290-46F5-828F-BEF9C3FE772D</key>
+		<key>62B5BF61-EE91-4696-A7F1-1C5990B9DC54</key>
 		<dict>
 			<key>from</key>
 			<string>CEDE9B3F-0F58-4AE0-82B8-5A0BEEE334C9 - CEDE9B3F-0F58-4AE0-82B8-5A0BEEE334C9</string>
