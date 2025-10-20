@@ -17,9 +17,10 @@ function findApplicationPath(appName) {
   ];
 
   for (const p of searchPaths) {
-    if (fs.existsSync(p)) {
-      return p;
-    }
+      console.log(`check app : ${p} = ${fs.existsSync(p)}`);
+      if (fs.existsSync(p)) {
+          return p;
+      }
   }
 
   // Fallback to Spotlight search if not in common directories
@@ -51,48 +52,63 @@ function replaceIcon(srcAppName, destAppPath) {
     return;
   }
 
+  let iconCopied = false;
+
+  // --- Strategy 1: Use `sips` for direct extraction (fast but can fail) ---
   try {
-    const srcInfoPath = path.join(srcAppPath, 'Contents', 'Info.plist');
+    console.warn(`Strategy 1: Use 'sips' ...`);
+    const tempIconPath = path.join(os.tmpdir(), `${path.basename(srcAppName)}.icns`);
+    execSync(`sips -s format icns "${srcAppPath}" --out "${tempIconPath}"`);
+
+    if (fs.existsSync(tempIconPath)) {
+      const destResPath = path.join(destAppPath, 'Contents', 'Resources');
+      const newDestIconPath = path.join(destResPath, `${path.basename(srcAppName, '.app')}.icns`);
+      fs.copyFileSync(tempIconPath, newDestIconPath);
+      fs.unlinkSync(tempIconPath); // Clean up temp file
+      iconCopied = true;
+    }
+  } catch (sipsError) {
+    console.warn(`'sips' command failed for ${srcAppName}. Trying fallback method...`);
+  }
+
+  // --- Strategy 2: Fallback to parsing Info.plist (more reliable) ---
+  if (!iconCopied) {
+    console.warn(`Strategy 2: parsing Info.plist ...`);
+    try {
+      const srcInfoPath = path.join(srcAppPath, 'Contents', 'Info.plist');
+      const srcPlist = plist.parse(fs.readFileSync(srcInfoPath, 'utf8'));
+      let iconFileName = srcPlist.CFBundleIconFile;
+
+      if (iconFileName) {
+        if (!iconFileName.endsWith('.icns')) {
+          iconFileName += '.icns';
+        }
+        const srcIconPath = path.join(srcAppPath, 'Contents', 'Resources', iconFileName);
+        if (fs.existsSync(srcIconPath)) {
+          const destResPath = path.join(destAppPath, 'Contents', 'Resources');
+          const newDestIconPath = path.join(destResPath, `${path.basename(srcAppName, '.app')}.icns`);
+          fs.copyFileSync(srcIconPath, newDestIconPath);
+          iconCopied = true;
+        }
+      }
+    } catch (plistError) {
+      // If this also fails, we'll just skip the icon replacement.
+    }
+  }
+
+  if (iconCopied) {
     const destInfoPath = path.join(destAppPath, 'Contents', 'Info.plist');
-    const destResPath = path.join(destAppPath, 'Contents', 'Resources');
-
-    // 1. Find the icon file name from the source app's Info.plist
-    const srcPlist = plist.parse(fs.readFileSync(srcInfoPath, 'utf8'));
-    let iconFileName = srcPlist.CFBundleIconFile;
-
-    if (!iconFileName) {
-      console.warn(`Warning: Could not determine icon file name from '${srcInfoPath}'. Skipping icon replacement.`);
-      return;
-    }
-
-    // 2. Ensure it has the .icns extension
-    if (!iconFileName.endsWith('.icns')) {
-      iconFileName += '.icns';
-    }
-
-    const srcIconPath = path.join(srcAppPath, 'Contents', 'Resources', iconFileName);
-    if (!fs.existsSync(srcIconPath)) {
-      console.warn(`Warning: Icon file '${srcIconPath}' not found. Skipping icon replacement.`);
-      return;
-    }
-
-    // 3. Copy the icon file to the destination, replacing the default 'applet.icns'
-    const defaultDestIconPath = path.join(destResPath, 'applet.icns');
-    const newDestIconPath = path.join(destResPath, iconFileName);
-    fs.copyFileSync(srcIconPath, defaultDestIconPath);
-    fs.renameSync(defaultDestIconPath, newDestIconPath);
-
-    // 4. Update the destination Info.plist to reference the new icon file
     const destPlist = plist.parse(fs.readFileSync(destInfoPath, 'utf8'));
-    destPlist.CFBundleIconFile = path.basename(iconFileName, '.icns');
+    const newDestIconPath = path.join(destAppPath, 'Contents', 'Resources', `${path.basename(srcAppName, '.app')}.icns`);
+    destPlist.CFBundleIconFile = path.basename(newDestIconPath);
     fs.writeFileSync(destInfoPath, plist.build(destPlist));
 
-    // 5. Force the system to recognize the new icon
+    // 4. Force the system to recognize the new icon
     fs.utimesSync(destAppPath, new Date(), new Date());
 
-    console.log(`Successfully replaced icon with '${iconFileName}'.`);
-  } catch (error) {
-    console.error('Error during icon replacement:', error);
+    console.log(`Successfully replaced icon with '${path.basename(newDestIconPath)}'.`);
+  } else {
+    console.error(`Error: Failed to extract icon from '${srcAppName}' using all available methods.`);
   }
 }
 

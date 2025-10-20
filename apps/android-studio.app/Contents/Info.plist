@@ -32,7 +32,7 @@
     <key>CFBundleExecutable</key>
     <string>Automator Application Stub</string>
     <key>CFBundleIconFile</key>
-    <string>studio</string>
+    <string>Android Studio.icns</string>
     <key>CFBundleIconName</key>
     <string>ApplicationStub</string>
     <key>CFBundleIdentifier</key>

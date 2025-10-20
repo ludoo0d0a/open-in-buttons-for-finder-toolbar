@@ -7,15 +7,17 @@
     "workflow-to-app": "./bin/workflow-to-app"
   },
   "scripts": {
-    "build": "npm run clean && npm run build:idea && npm run build:vscode && npm run build:iterm && npm run build:androidstudio",
-    "build:vscode": "node src/index.js vscode 'Visual Studio Code' --icon-from 'Visual Studio Code.app'",
-    "build:android-studio": "node src/index.js android-studio 'Android Studio' --icon-from 'Android Studio.app'",
-    "build:iterm": "node src/index.js iterm 'iTerm' --icon-from 'iTerm.app'",
+    "build:all": "npm run build:all-dev && npm run all-text",
+    "build:all-dev": "npm run build:idea && npm run build:iterm && npm run build:terminal && npm run build:android-studio",
+    "build:all-text": "npm run build:vscode && npm run build:atom && npm run build:textmate && npm run build:sublime",
     "build:idea": "node src/index.js idea 'IntelliJ IDEA' --icon-from 'IntelliJ IDEA.app' --run-script src/finder/idea/run.sh",
-    "build:sublime": "node src/index.js sublime 'Sublime Text'",
+    "build:iterm": "node src/index.js iterm 'iTerm' --icon-from 'iTerm.app'",
+    "build:terminal": "node src/index.js terminal 'Terminal'",
+    "build:android-studio": "node src/index.js android-studio 'Android Studio' --icon-from 'Android Studio.app'",
+    "build:vscode": "node src/index.js vscode 'Visual Studio Code' --icon-from 'Visual Studio Code.app'",
     "build:atom": "node src/index.js atom 'Atom'",
     "build:textmate": "node src/index.js textmate 'TextMate'",
-    "build:terminal": "node src/index.js terminal 'Terminal'"
+    "build:sublime": "node src/index.js sublime 'Sublime Text'"
   },
   "dependencies": {
     "commander": "^14.0.1",

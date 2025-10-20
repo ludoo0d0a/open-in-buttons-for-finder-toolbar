@@ -1,5 +1,5 @@
 
-# 'open in' buttons for MacOS X Finder toolbar and mb pro touchbar
+# 'open in' buttons for MacOS X Finder toolbar and macbook pro touchbar
 
 git : https://github.com/ludoo0d0a/open-in-buttons-for-finder-toolbar
 
@@ -18,7 +18,7 @@ git : https://github.com/ludoo0d0a/open-in-buttons-for-finder-toolbar
 - IntelliJ
 
 ### Install
-- Download apps
+- Download apps from /apps
 - copy to applications folder
 - and drag it to Finder toolbar (hold `⌘cmd`)
 - to remove old shortcut, drag them out of the toolbar.
@@ -65,7 +65,7 @@ Read [this](https://manual.macromates.com/en/using_textmate_from_terminal.html "
 take a look in `src` folder
 
 
-
+# Automation (ci/cd)
 
 ## Overview
 This project provides a command-line tool to convert macOS Automator `.workflow` files into standalone `.app` bundles. It simplifies the process of packaging Automator workflows for easier distribution and execution.
@@ -92,6 +92,11 @@ bin/workflow-to-app <path-to-workflow-file>
 ```
 
 Replace `<path-to-workflow-file>` with the path to your `.workflow` file.
+
+To run all of them, 
+```bash
+npm build
+```
 
 ## Scripts
 - `src/index.js`: Entry point for the application.
