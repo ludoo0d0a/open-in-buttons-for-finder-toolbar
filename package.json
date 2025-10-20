@@ -15,8 +15,7 @@
     "build:sublime": "node src/index.js sublime 'Sublime Text'",
     "build:atom": "node src/index.js atom 'Atom'",
     "build:textmate": "node src/index.js textmate 'TextMate'",
-    "build:terminal": "node src/index.js terminal 'Terminal'",
-    "clean": "rm -rf dist"
+    "build:terminal": "node src/index.js terminal 'Terminal'"
   },
   "dependencies": {
     "commander": "^14.0.1",
