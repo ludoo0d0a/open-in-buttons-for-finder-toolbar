@@ -1,0 +1,37 @@
+{
+  "name": "workflow-to-app",
+  "version": "1.0.0",
+  "description": "A tool to convert Automator workflows into standalone macOS applications.",
+  "main": "src/index.js",
+  "bin": {
+    "workflow-to-app": "./bin/workflow-to-app"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run build:idea && npm run build:vscode && npm run build:iterm && npm run build:androidstudio",
+    "build:vscode": "node src/index.js vscode 'Visual Studio Code' --icon-from 'Visual Studio Code.app'",
+    "build:android-studio": "node src/index.js android-studio 'Android Studio' --icon-from 'Android Studio.app'",
+    "build:iterm": "node src/index.js iterm 'iTerm' --icon-from 'iTerm.app'",
+    "build:idea": "node src/index.js idea 'IntelliJ IDEA' --icon-from 'IntelliJ IDEA.app' --run-script src/finder/idea/run.sh",
+    "build:sublime": "node src/index.js sublime 'Sublime Text'",
+    "build:atom": "node src/index.js atom 'Atom'",
+    "build:textmate": "node src/index.js textmate 'TextMate'",
+    "build:terminal": "node src/index.js terminal 'Terminal'",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "commander": "^14.0.1",
+    "fs-extra": "^11.3.2",
+    "plist": "^3.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.38.0"
+  },
+  "keywords": [
+    "automator",
+    "macos",
+    "workflow",
+    "app"
+  ],
+  "author": "Ludovic Valente",
+  "license": "MIT"
+}
